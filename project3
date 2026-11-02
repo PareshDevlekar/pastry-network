@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+mkdir -p "$ROOT/ebin"
+erlc -Werror -o "$ROOT/ebin" "$ROOT/src/"*.erl
+exec erl -noshell -pa "$ROOT/ebin" -eval 'project3:main(init:get_plain_arguments()), halt().' -extra "$@"
